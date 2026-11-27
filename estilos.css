@@ -1,0 +1,239 @@
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif; 
+  color: #222222;                   
+  background: #f5f7fa;              
+  line-height: 1.6;
+}
+
+a {
+  color: #2f5bff;                  
+}
+
+
+.menu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  background: #ffffff;
+}
+
+.menu nav a {
+  margin-left: 20px;
+  text-decoration: none;
+}
+
+
+.portada {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.foto {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;           
+  object-fit: cover;
+  margin-bottom: 20px;
+}
+
+.portada h1 {
+  font-size: 40px;
+  margin-bottom: 10px;
+}
+
+.boton {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 12px 24px;
+  background: #2f5bff;             
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 6px;
+}
+
+.boton:hover {
+  background: #1e3fc4;              
+}
+
+
+.seccion {
+  max-width: 800px;                 
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.seccion h2 {
+  margin-bottom: 15px;
+}
+
+
+.habilidades {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.habilidades li {
+  background: #ffffff;
+  border: 1px solid #cccccc;
+  padding: 5px 15px;
+  border-radius: 20px;
+}
+
+.proyecto {
+  background: #ffffff;
+  border: 1px solid #dddddd;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 15px;
+}
+
+.proyecto h3 {
+  margin-bottom: 5px;
+}
+
+
+.pie {
+  text-align: center;
+  padding: 20px;
+  background: #222222;
+  color: #ffffff;
+}
+
+
+/* ===== ANIMACIONES SUAVES ===== */
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* El menú se queda arriba al bajar */
+.menu {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06);
+}
+
+/* Enlaces del menú: línea que aparece al pasar el mouse o estar activo */
+.menu nav a {
+  position: relative;
+  padding-bottom: 3px;
+}
+
+.menu nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background: #2f5bff;
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.menu nav a:hover::after,
+.menu nav a.activo::after {
+  transform: scaleX(1);
+}
+
+/* Portada: entra con un fundido suave al cargar la página */
+@keyframes aparecer {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.portada > * {
+  animation: aparecer 0.8s ease both;
+}
+
+.portada > :nth-child(2) { animation-delay: 0.15s; }
+.portada > :nth-child(3) { animation-delay: 0.3s; }
+.portada > :nth-child(4) { animation-delay: 0.45s; }
+
+/* Botón */
+.boton {
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.boton:hover {
+  transform: translateY(-2px);
+}
+
+/* Habilidades y proyectos: se elevan un poquito al pasar el mouse */
+.habilidades li,
+.proyecto {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.habilidades li:hover,
+.proyecto:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
+}
+
+/* Secciones: aparecen al hacer scroll (la clase la agrega el JS) */
+.oculto {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.seccion {
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.seccion.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Botón para volver arriba */
+#subir {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  width: 44px;
+  height: 44px;
+  border: none;
+  border-radius: 50%;
+  background: #2f5bff;
+  color: #ffffff;
+  font-size: 20px;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, background 0.3s ease;
+}
+
+#subir.mostrar {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+#subir:hover {
+  background: #1e3fc4;
+}
+
+/* Si la persona prefiere menos movimiento, se desactiva todo */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+  .oculto {
+    opacity: 1;
+    transform: none;
+  }
+}
